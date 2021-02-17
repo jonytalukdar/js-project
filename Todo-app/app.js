@@ -6,9 +6,14 @@ const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTER_LIST_ID_KEY = 'task.selectelId';
 
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
-let selectedListId = JSON.parse(
-  localStorage.getItem(LOCAL_STORAGE_SELECTER_LIST_ID_KEY)
-);
+let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTER_LIST_ID_KEY);
+
+listsContainer.addEventListener('click', (e) => {
+  if (e.target.tagName.toLowerCase() === 'li') {
+    selectedListId = e.target.dataset.listId;
+    saveAndRender();
+  }
+});
 
 newListForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -32,6 +37,7 @@ function saveAndRender() {
 
 function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
+  localStorage.setItem(LOCAL_STORAGE_SELECTER_LIST_ID_KEY, selectedListId);
 }
 
 function render() {
