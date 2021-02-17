@@ -2,6 +2,13 @@ const listsContainer = document.querySelector('[data-lists]');
 const newListForm = document.querySelector('[data-new-list-form]');
 const newListInput = document.querySelector('[data-new-list-input]');
 const deleteListButton = document.querySelector('[data-delete-list-button]');
+const listDisplayContainer = document.querySelector(
+  '[data-list-display-container]'
+);
+const listTitle = document.querySelector('[data-list-title]');
+const listCount = document.querySelector('[data-list-count]');
+const tasksContainer = document.querySelector('data-tasks');
+const listCountElement = document.querySelector('[data-list-count]');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTER_LIST_ID_KEY = 'task.selectelId';
@@ -35,7 +42,17 @@ newListForm.addEventListener('submit', (e) => {
 });
 
 function createList(name) {
-  return { id: Date.now().toString(), name: name, tasks: [] };
+  return {
+    id: Date.now().toString(),
+    name: name,
+    tasks: [
+      {
+        id: 1,
+        name: 'asdfasd',
+        complete: false,
+      },
+    ],
+  };
 }
 
 function saveAndRender() {
@@ -48,8 +65,31 @@ function save() {
   localStorage.setItem(LOCAL_STORAGE_SELECTER_LIST_ID_KEY, selectedListId);
 }
 
+// function for render
 function render() {
   clearElement(listsContainer);
+  renderLists();
+  const selectedList = lists.find((list) => list.id === selectedListId);
+  if (selectedListId == null) {
+    listDisplayContainer.style.display = 'none';
+  } else {
+    listDisplayContainer.style.display = '';
+    listTitle.innerText = selectedList.name;
+    renderTaskCount(selectedList);
+  }
+}
+
+// function for selected task list
+function renderTaskCount(selectedList) {
+  const incompleteTaskCount = selectedList.tasks.filter(
+    (task) => !task.complete
+  ).length;
+  const taskString = incompleteTaskCount === 1 ? 'task' : 'tasks';
+  listCountElement.innerText = `${incompleteTaskCount} ${taskString} remaining`;
+}
+
+// function for render lists
+function renderLists() {
   lists.forEach((list) => {
     const listElement = document.createElement('li');
     listElement.dataset.listId = list.id;
