@@ -5,8 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="container">
+      <div class="calc-body">
+        <div class="calc-screen">
+          <div class="calc-operation">0</div>
+          <div class="calc-typed">0</div>
+        </div>
+        <div class="calc-button-row">
+          <div data-all-clear class="button c">AC</div>
+          <div data-delete class="button l"><</div>
+          <div data-operation class="button l">/</div>
+        </div>
+        <div class="calc-button-row">
+          <div data-number class="button">7</div>
+          <div data-number class="button">8</div>
+          <div data-number class="button">9</div>
+          <div data-operation class="button l">*</div>
+        </div>
+        <div class="calc-button-row">
+          <div data-number class="button">4</div>
+          <div data-number class="button">5</div>
+          <div data-number class="button">6</div>
+          <div data-operation class="button l">−</div>
+        </div>
+        <div class="calc-button-row">
+          <div data-number class="button">1</div>
+          <div data-number class="button">2</div>
+          <div data-number class="button">3</div>
+          <div data-operation class="button l">+</div>
+        </div>
+        <div class="calc-button-row">
+          <div data-number class="button">.</div>
+          <div data-number class="button">0</div>
+          <div data-equal class="button l equal">=</div>
+        </div>
+      </div>
+    </div>
     <script src="./app.js"></script>
   </body>
 </html>
