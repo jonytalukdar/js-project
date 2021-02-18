@@ -7,7 +7,7 @@ const listDisplayContainer = document.querySelector(
 );
 const listTitle = document.querySelector('[data-list-title]');
 const listCount = document.querySelector('[data-list-count]');
-const tasksContainer = document.querySelector('data-tasks');
+const tasksContainer = document.querySelector('[data-tasks]');
 const listCountElement = document.querySelector('[data-list-count]');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
@@ -45,13 +45,7 @@ function createList(name) {
   return {
     id: Date.now().toString(),
     name: name,
-    tasks: [
-      {
-        id: 1,
-        name: 'asdfasd',
-        complete: false,
-      },
-    ],
+    tasks: [],
   };
 }
 
@@ -69,6 +63,7 @@ function save() {
 function render() {
   clearElement(listsContainer);
   renderLists();
+
   const selectedList = lists.find((list) => list.id === selectedListId);
   if (selectedListId == null) {
     listDisplayContainer.style.display = 'none';
@@ -76,6 +71,7 @@ function render() {
     listDisplayContainer.style.display = '';
     listTitle.innerText = selectedList.name;
     renderTaskCount(selectedList);
+    clearElement(tasksContainer);
   }
 }
 
