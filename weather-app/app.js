@@ -12,7 +12,7 @@ const historyElm = document.getElementById('history');
 const masterHistory = document.getElementById('master-history');
 
 const API_KEY = '08d1ff27ba3f8236c3b68e4278207732';
-const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}`;
+const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&units=metric`;
 const ICON_API = `http://openweathermap.org/img/wn/`;
 const DEFAULT_CITY = 'tangail,bd';
 
@@ -22,9 +22,19 @@ window.onload = function () {
       getWeatherData(null, s.coords);
     },
     (e) => {
-      getWeatherData(DEFAULT_CITY);
+      getWeatherData();
     }
   );
+  cityInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      if (e.target.value) {
+        getWeatherData(e.target.value);
+        e.target.value = '';
+      } else {
+        alert('please enter a valid city name');
+      }
+    }
+  });
 };
 
 function getWeatherData(city = DEFAULT_CITY, coords) {
@@ -35,10 +45,32 @@ function getWeatherData(city = DEFAULT_CITY, coords) {
     : (url = `${url}&q=${city}`);
   axios
     .get(url)
-    .then((response) => {
-      console.log(response.data);
+    .then(({ data }) => {
+      let weather = {
+        icon: data.weather[0].icon,
+        name: data.name,
+        country: data.sys.country,
+        main: data.weather[0].main,
+        description: data.weather[0].description,
+        temp: data.main.temp,
+        pressure: data.main.pressure,
+        humidity: data.main.humidity,
+      };
+      setWeather(weather);
     })
     .catch((e) => {
       console.log(e);
+      alert('city Not Found');
     });
+}
+
+function setWeather(weather) {
+  condition.src = `${ICON_API}${weather.icon}.png`;
+  city.innerHTML = weather.name;
+  country.innerHTML = weather.country;
+  mainTask.innerHTML = weather.main;
+  description.innerHTML = weather.description;
+  temp.innerHTML = weather.temp;
+  pressure.innerHTML = weather.pressure;
+  humidity.innerHTML = weather.humidity;
 }
