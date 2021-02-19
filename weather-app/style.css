@@ -1,3 +1,7 @@
 body {
   background: cyan !important;
 }
+
+#master-history {
+  display: none;
+}
