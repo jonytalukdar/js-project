@@ -97,22 +97,24 @@ function updateHistory(history) {
   history.forEach((h) => {
     let temHistory = masterHistory.cloneNode(true);
     temHistory.id = '';
-    temHistory.getElementByClassName(
+    temHistory.getElementsByClassName(
       'condition'
     )[0].src = `${ICON_API}${h.icon}.png`;
-    temHistory.getElementByClassName('city')[0].innerHTML = h.name;
+    temHistory.getElementsByClassName('city')[0].innerHTML = h.name;
 
-    temHistory.getElementByClassName('country')[0].innerHTML = h.country;
+    temHistory.getElementsByClassName('country')[0].innerHTML = h.country;
 
-    temHistory.getElementByClassName('main')[0].innerHTML = h.main;
+    temHistory.getElementsByClassName('main')[0].innerHTML = h.main;
 
-    temHistory.getElementByClassName('description')[0].innerHTML =
+    temHistory.getElementsByClassName('description')[0].innerHTML =
       h.description;
 
-    temHistory.getElementByClassName('temp')[0].innerHTML = h.temp;
+    temHistory.getElementsByClassName('temp')[0].innerHTML = h.temp;
 
-    temHistory.getElementByClassName('pressure')[0].innerHTML = h.pressure;
+    temHistory.getElementsByClassName('pressure')[0].innerHTML = h.pressure;
 
-    temHistory.getElementByClassName('humidity')[0].innerHTML = h.humidity;
+    temHistory.getElementsByClassName('humidity')[0].innerHTML = h.humidity;
+
+    historyElm.appendChild(temHistory);
   });
 }
