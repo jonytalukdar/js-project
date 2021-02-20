@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/api/history', require('./api.route'));
+app.use('/api/history', require('./api/route'));
 
 const PORT = process.env.PORT || 1212;
 app.listen(PORT, () => {

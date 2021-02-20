@@ -25,6 +25,20 @@ window.onload = function () {
       getWeatherData();
     }
   );
+
+  axios
+    .get('api/history')
+    .then(({ data }) => {
+      if (data.length > 0) {
+      } else {
+        historyElm.innerHTML = 'there is no history';
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+      alert('error ocured');
+    });
+
   cityInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       if (e.target.value) {
