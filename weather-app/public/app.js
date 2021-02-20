@@ -30,6 +30,7 @@ window.onload = function () {
     .get('api/history')
     .then(({ data }) => {
       if (data.length > 0) {
+        updateHistory(data);
       } else {
         historyElm.innerHTML = 'there is no history';
       }
@@ -87,4 +88,31 @@ function setWeather(weather) {
   temp.innerHTML = weather.temp;
   pressure.innerHTML = weather.pressure;
   humidity.innerHTML = weather.humidity;
+}
+
+function updateHistory(history) {
+  historyElm.innerHTML = '';
+  history = history.reverse();
+
+  history.forEach((h) => {
+    let temHistory = masterHistory.cloneNode(true);
+    temHistory.id = '';
+    temHistory.getElementByClassName(
+      'condition'
+    )[0].src = `${ICON_API}${h.icon}.png`;
+    temHistory.getElementByClassName('city')[0].innerHTML = h.name;
+
+    temHistory.getElementByClassName('country')[0].innerHTML = h.country;
+
+    temHistory.getElementByClassName('main')[0].innerHTML = h.main;
+
+    temHistory.getElementByClassName('description')[0].innerHTML =
+      h.description;
+
+    temHistory.getElementByClassName('temp')[0].innerHTML = h.temp;
+
+    temHistory.getElementByClassName('pressure')[0].innerHTML = h.pressure;
+
+    temHistory.getElementByClassName('humidity')[0].innerHTML = h.humidity;
+  });
 }
